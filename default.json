@@ -3,7 +3,9 @@
   "description": "Shared baseline for the public grigoriev and intechcore repositories",
   "extends": [
     "config:recommended",
-    "helpers:pinGitHubActionDigests"
+    "helpers:pinGitHubActionDigests",
+    ":semanticCommits",
+    ":semanticCommitScopeDisabled"
   ],
   "dependencyDashboard": true,
   "automerge": true,
@@ -11,6 +13,13 @@
   "platformAutomerge": true,
   "pinDigests": true,
   "osvVulnerabilityAlerts": true,
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 20,
+  "pip-compile": {
+    "managerFilePatterns": [
+      "/^\\.github/requirements/[^/]+\\.txt$/"
+    ]
+  },
   "customManagers": [
     {
       "customType": "regex",
@@ -20,6 +29,16 @@
       ],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\s+[A-Z0-9_]+: [^\\s:]+:(?<currentValue>[^\\s@]+)@(?<currentDigest>sha256:[a-f0-9]{64})"
+      ]
+    },
+    {
+      "customType": "regex",
+      "description": "Plain tool versions in workflows, such as the version input of action-shellcheck, below a renovate comment",
+      "managerFilePatterns": [
+        "/^\\.github/workflows/[^/]+\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n\\s+[\\w-]+: [\"']?(?<currentValue>v?[\\d.]+)[\"']?"
       ]
     },
     {
@@ -40,6 +59,20 @@
         "*"
       ],
       "dependencyDashboardApproval": false
+    },
+    {
+      "description": "Non-major GitHub Actions updates travel in one pull request per repository, so action versions never drift behind the rate limits. Majors stay separate. The zizmor rules below come later and keep their own group.",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest",
+        "pin",
+        "pinDigest"
+      ],
+      "groupName": "github actions"
     },
     {
       "description": "Renovate reads the version input of zizmor-action as the image ghcr.io/zizmorcore/zizmor. The action accepts only a plain X.Y.Z version, so this dependency is never pinned by digest.",
