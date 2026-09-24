@@ -8,7 +8,7 @@
   "dependencyDashboard": true,
   "automerge": true,
   "automergeType": "pr",
-  "platformAutomerge": false,
+  "platformAutomerge": true,
   "pinDigests": true,
   "osvVulnerabilityAlerts": true,
   "customManagers": [
