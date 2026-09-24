@@ -32,7 +32,7 @@ preset.
 | `pinDigests: true` | Docker images are pinned by digest |
 | `automerge`, `automergeType: pr`, `platformAutomerge: true` | Renovate opens a pull request and turns on GitHub auto-merge. GitHub merges it as soon as the required checks pass |
 | `osvVulnerabilityAlerts: true` | Updates for known vulnerabilities come from the OSV database too |
-| Major updates | Open a pull request at once, without dashboard approval |
+| Dashboard approval | Off for every update, majors included. It also overrides an approval gate set on the Mend side |
 
 GitHub auto-merge is safe here because the ruleset of every repository still applies to it:
 required checks, signed commits and the CodeQL rule. A red pull request never merges. The

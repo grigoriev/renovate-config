@@ -35,9 +35,9 @@
   ],
   "packageRules": [
     {
-      "description": "Major updates open a pull request at once, without dashboard approval.",
-      "matchUpdateTypes": [
-        "major"
+      "description": "Every update opens a pull request at once, without dashboard approval. A rule on all packages, because repository rules come after the global ones and override an approval gate set there.",
+      "matchPackageNames": [
+        "*"
       ],
       "dependencyDashboardApproval": false
     },
