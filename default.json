@@ -1,0 +1,66 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Shared baseline for the public grigoriev and intechcore repositories",
+  "extends": [
+    "config:recommended",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "dependencyDashboard": true,
+  "automerge": true,
+  "automergeType": "pr",
+  "platformAutomerge": false,
+  "pinDigests": true,
+  "osvVulnerabilityAlerts": true,
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Docker images pinned by tag and digest in workflow env variables, below a renovate comment",
+      "managerFilePatterns": [
+        "/^\\.github/workflows/[^/]+\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\s+[A-Z0-9_]+: [^\\s:]+:(?<currentValue>[^\\s@]+)@(?<currentDigest>sha256:[a-f0-9]{64})"
+      ]
+    },
+    {
+      "customType": "regex",
+      "description": "Lint and scan tool images in the Makefile, pinned by tag and digest, below a renovate comment",
+      "managerFilePatterns": [
+        "/^Makefile$/"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n[A-Z0-9_]+\\s+\\?=\\s+\\S+?:(?<currentValue>[^@\\s]+)@(?<currentDigest>sha256:[a-f0-9]{64})"
+      ]
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Major updates open a pull request at once, without dashboard approval.",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "dependencyDashboardApproval": false
+    },
+    {
+      "description": "Renovate reads the version input of zizmor-action as the image ghcr.io/zizmorcore/zizmor. The action accepts only a plain X.Y.Z version, so this dependency is never pinned by digest.",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchDepNames": [
+        "ghcr.io/zizmorcore/zizmor"
+      ],
+      "pinDigests": false
+    },
+    {
+      "description": "zizmor-action runs only the zizmor versions listed in its own release. The action and the zizmor version travel in one pull request.",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchDepNames": [
+        "zizmorcore/zizmor-action",
+        "ghcr.io/zizmorcore/zizmor"
+      ],
+      "groupName": "zizmor"
+    }
+  ]
+}

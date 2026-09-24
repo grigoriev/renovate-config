@@ -1,0 +1,17 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "local>grigoriev/renovate-config"
+  ],
+  "packageRules": [
+    {
+      "description": "Renovate releases almost daily. The validator image in CI moves once a week.",
+      "matchDepNames": [
+        "renovate/renovate"
+      ],
+      "schedule": [
+        "* 0-5 * * 1"
+      ]
+    }
+  ]
+}
