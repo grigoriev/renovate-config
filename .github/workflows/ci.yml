@@ -15,7 +15,7 @@ concurrency:
 
 env:
   # renovate: datasource=docker depName=renovate/renovate
-  RENOVATE_IMAGE: renovate/renovate:44.151.2@sha256:9ea828b38867af0ca5f269e6c5feace9e74e7f035da150bb16f8c5f70bf2e6e8
+  RENOVATE_IMAGE: renovate/renovate:44.167.5@sha256:c33150ec6407624a9399a2d827fd125becafdbe4519d7584488cbdd17f99081e
 
 jobs:
   lint:
