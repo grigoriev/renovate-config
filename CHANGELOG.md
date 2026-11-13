@@ -6,6 +6,13 @@ Renovate reads it from `main`.
 
 ## [Unreleased]
 
+### Changed
+- Minor, patch and digest updates of every manager travel in one pull request per repository,
+  group `all non-major dependencies`, on weekends (Europe/Berlin). It replaces the
+  `github actions` group. Majors stay separate, security fixes ignore the schedule.
+- Renovate rebases a branch only on a conflict (`rebaseWhen: conflicted`). A green pull
+  request merges although `main` moved on; CI on `main` checks the combination.
+
 ### Added
 - One pull request per repository for minor, patch and digest updates of GitHub Actions,
   group `github actions`. The `zizmor` group stays separate.

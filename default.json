@@ -11,6 +11,8 @@
   "automerge": true,
   "automergeType": "pr",
   "platformAutomerge": true,
+  "rebaseWhen": "conflicted",
+  "timezone": "Europe/Berlin",
   "pinDigests": true,
   "osvVulnerabilityAlerts": true,
   "prHourlyLimit": 0,
@@ -61,9 +63,9 @@
       "dependencyDashboardApproval": false
     },
     {
-      "description": "Non-major GitHub Actions updates travel in one pull request per repository, so action versions never drift behind the rate limits. Majors stay separate. The zizmor rules below come later and keep their own group.",
-      "matchManagers": [
-        "github-actions"
+      "description": "Minor, patch and digest updates of every manager travel in one pull request per repository, once a week on the weekend. Fewer pull requests, fewer reviews, no wave of rebases. Majors stay separate and arrive at once, security fixes ignore the schedule. The zizmor rules below come later and keep their own group.",
+      "matchPackageNames": [
+        "*"
       ],
       "matchUpdateTypes": [
         "minor",
@@ -72,7 +74,10 @@
         "pin",
         "pinDigest"
       ],
-      "groupName": "github actions"
+      "groupName": "all non-major dependencies",
+      "schedule": [
+        "* * * * 0,6"
+      ]
     },
     {
       "description": "Renovate reads the version input of zizmor-action as the image ghcr.io/zizmorcore/zizmor. The action accepts only a plain X.Y.Z version, so this dependency is never pinned by digest.",
