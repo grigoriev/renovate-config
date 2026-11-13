@@ -7,7 +7,6 @@ Renovate reads it from `main`.
 ## [Unreleased]
 
 ### Changed
-- Greptile skips pull requests from Renovate and Dependabot (`.greptile/config.json`).
 - Minor, patch and digest updates of every manager travel in one pull request per repository,
   group `all non-major dependencies`, on weekends (Europe/Berlin). It replaces the
   `github actions` group. Majors stay separate, security fixes ignore the schedule.
