@@ -30,12 +30,13 @@ preset. Do not repeat a preset setting in a repository.
 |---|---|
 | `config:recommended` | Renovate's recommended base, with the dependency dashboard |
 | `helpers:pinGitHubActionDigests` | GitHub Actions are pinned by commit SHA, the version stays in a comment |
-| `:semanticCommits`, `:semanticCommitScopeDisabled` | Commits and pull request titles are Conventional Commits without a scope, for example `chore: update github actions` |
+| `:semanticCommits`, `:semanticCommitScopeDisabled` | Commits and pull request titles are Conventional Commits without a scope, for example `chore: update all non-major dependencies` |
 | `pinDigests: true` | Docker images are pinned by digest |
 | `automerge`, `automergeType: pr`, `platformAutomerge: true` | Renovate opens a pull request and turns on GitHub auto-merge. GitHub merges it as soon as the required checks pass |
 | `osvVulnerabilityAlerts: true` | Updates for known vulnerabilities come from the OSV database too |
 | `prHourlyLimit: 0`, `prConcurrentLimit: 20` | No hourly limit, up to 20 open pull requests. The limits of `config:recommended` held updates back, and action versions drifted apart between repositories |
-| Group `github actions` | Minor, patch and digest updates of GitHub Actions travel in one pull request per repository. Majors stay separate |
+| Group `all non-major dependencies` | Minor, patch and digest updates of every manager travel in one pull request per repository, on weekends (`timezone: Europe/Berlin`). Majors stay separate and arrive at once. Security fixes ignore the schedule |
+| `rebaseWhen: conflicted` | Renovate rebases a branch only on a conflict. A green pull request merges although `main` moved on, so updates do not trigger a wave of rebases and reviews. CI on `main` checks the combination |
 | Dashboard approval | Off for every update, majors included. It also overrides an approval gate set on the Mend side |
 | `pip-compile` | Covers every compiled `.github/requirements/*.txt` file. A repository needs no own pattern |
 
@@ -83,7 +84,7 @@ zizmor:
 - The action accepts only a plain `X.Y.Z` version, so the preset never pins it by digest.
 - The action runs only the zizmor versions its own release lists. The action and the
   zizmor version come in one pull request, group `zizmor`. This rule comes after the
-  `github actions` group and wins over it.
+  `all non-major dependencies` group and wins over it.
 
 ## Changes
 
