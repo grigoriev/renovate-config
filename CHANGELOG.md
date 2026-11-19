@@ -7,12 +7,10 @@ Renovate reads it from `main`.
 ## [Unreleased]
 
 ### Changed
-- The `all non-major dependencies` group has no weekend schedule any more. Renovate opens
-  its pull request on the run that finds the update. A weekly wait held back fixes in base
-  images and toolchains, for example a Go patch for stdlib CVEs, for up to six days.
 - Minor, patch and digest updates of every manager travel in one pull request per repository,
-  group `all non-major dependencies`, on weekends (Europe/Berlin). It replaces the
-  `github actions` group. Majors stay separate.
+  group `all non-major dependencies`. It replaces the `github actions` group. Majors stay
+  separate. The group has no schedule: a weekend schedule held back fixes in base images and
+  toolchains, for example a Go patch for stdlib CVEs, for up to six days.
 - Renovate rebases a branch only on a conflict (`rebaseWhen: conflicted`). A green pull
   request merges although `main` moved on; CI on `main` checks the combination.
 
