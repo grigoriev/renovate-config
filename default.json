@@ -63,7 +63,7 @@
       "dependencyDashboardApproval": false
     },
     {
-      "description": "Minor, patch and digest updates of every manager travel in one pull request per repository, once a week on the weekend. Fewer pull requests, fewer reviews, no wave of rebases. Majors stay separate and arrive at once, security fixes ignore the schedule. The zizmor rules below come later and keep their own group.",
+      "description": "Minor, patch and digest updates of every manager travel in one pull request per repository. No schedule: a fix in a base image or a toolchain arrives at once, and image scanners report it the same day. Majors stay separate. The zizmor rules below come later and keep their own group.",
       "matchPackageNames": [
         "*"
       ],
@@ -74,10 +74,7 @@
         "pin",
         "pinDigest"
       ],
-      "groupName": "all non-major dependencies",
-      "schedule": [
-        "* * * * 0,6"
-      ]
+      "groupName": "all non-major dependencies"
     },
     {
       "description": "Renovate reads the version input of zizmor-action as the image ghcr.io/zizmorcore/zizmor. The action accepts only a plain X.Y.Z version, so this dependency is never pinned by digest.",
